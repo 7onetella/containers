@@ -1,0 +1,6 @@
+{
+    "workbench.preferredDarkColorTheme": "Visual Studio Dark",
+    "editor.cursorStyle": "block",
+    "vim.cursorStylePerMode.insert": "line",
+    "workbench.colorTheme": "Visual Studio Dark"
+}
