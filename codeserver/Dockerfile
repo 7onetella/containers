@@ -61,8 +61,12 @@ USER coder
 #     go get -v github.com/ramya-rao-a/go-outline       && \
 #     go get -v github.com/go-delve/delve/cmd/dlv       && \
 #     go get -v golang.org/x/lint/golint               
-# RUN  export PATH=$PATH:.:/usr/local/go/bin/              && \
-#      go get -v 
+RUN  export PATH=$PATH:.:/usr/local/go/bin/               && \
+     go get -v github.com/go-bindata/go-bindata/...       && \
+     go get -v github.com/elazarl/go-bindata-assetfs/...  && \
+     go get -v github.com/markbates/refresh               && \
+     go get -v github.com/mitchellh/gox                   && \
+     go get -v github.com/go-swagger/go-swagger
 
 RUN /usr/bin/code-server --install-extension ms-python.python     && \
     /usr/bin/code-server --install-extension golang.go            && \
@@ -74,10 +78,12 @@ RUN mkdir -p /home/coder/workspace                    && \
 
 RUN git clone https://github.com/7onetella/users.git  /home/coder/workspace/users
 
-COPY --chown=coder:coder config.yml       /home/coder/.config/code-server/config.yaml 
-COPY --chown=coder:coder .vscode          /home/coder/workspace/.vscode
-COPY --chown=coder:coder .exports         /home/coder/.bashrc
-COPY --chown=coder:coder .gitconfig       /home/coder/.gitconfig
+COPY --chown=coder:coder config.yml     /home/coder/.config/code-server/config.yaml 
+COPY --chown=coder:coder .vscode        /home/coder/workspace/.vscode
+COPY --chown=coder:coder .exports       /home/coder/.bashrc
+COPY --chown=coder:coder .gitconfig     /home/coder/.gitconfig
+COPY --chown=coder:coder entrypoint.sh  /home/coder/.local/bin/entrypoint.sh
 
+RUN chmod +x /home/coder/.local/bin/entrypoint.sh
 
-ENTRYPOINT ["/usr/bin/entrypoint.sh", "--bind-addr", "0.0.0.0:8080", "/home/coder/workspace"]
+ENTRYPOINT ["/home/coder/.local/bin/entrypoint.sh"]

@@ -1,4 +1,4 @@
 [codeserver]
 health  = /
-memory  = 512
+memory  = 1024
 port    = 8080
