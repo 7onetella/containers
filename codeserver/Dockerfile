@@ -41,9 +41,8 @@ RUN npm install -g ember-cli
 
 # Install SSH server
 RUN  apt-get install -q -y openssh-server > /dev/null
-RUN  sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/'                 /etc/ssh/sshd_config
+# RUN  sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/'                 /etc/ssh/sshd_config
 RUN  sed -i 's/ChallengeResponseAuthentication no/ChallengeResponseAuthentication yes/' /etc/ssh/sshd_config
-COPY .ssh /home/coder/.ssh
 
 
 # Install GoLang
@@ -64,7 +63,8 @@ RUN export PATH=$PATH:.:/usr/local/go/bin/              && \
     go get -v github.com/josharian/impl                 && \
     go get -v github.com/haya14busa/goplay/cmd/goplay   && \
     go get -v github.com/go-delve/delve/cmd/dlv         && \
-    go get -v honnef.co/go/tools/cmd/staticcheck 
+    go get -v honnef.co/go/tools/cmd/staticcheck        && \
+    go get -v github.com/ramya-rao-a/go-outline
 
 RUN  export PATH=$PATH:.:/usr/local/go/bin/               && \
      go get -v github.com/go-bindata/go-bindata/...       && \
@@ -88,7 +88,10 @@ COPY --chown=coder:coder .vscode        /home/coder/workspace/.vscode
 COPY --chown=coder:coder .exports       /home/coder/.bashrc
 COPY --chown=coder:coder .gitconfig     /home/coder/.gitconfig
 COPY --chown=coder:coder entrypoint.sh  /home/coder/.local/bin/entrypoint.sh
+COPY --chown=coder:coder .ssh           /home/coder/.ssh
 
 RUN chmod +x /home/coder/.local/bin/entrypoint.sh
+
+EXPOSE 22
 
 ENTRYPOINT ["/home/coder/.local/bin/entrypoint.sh"]
