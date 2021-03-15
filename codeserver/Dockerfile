@@ -30,14 +30,22 @@ RUN  chmod +x /root/node_install.sh  && \
 RUN npm install -g ember-cli
 
 
-# Docker install: https://docs.docker.com/engine/install/ubuntu/
-# RUN curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
-# RUN add-apt-repository \
-#    "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
-#    $(lsb_release -cs) \
-#    stable"
-# RUN apt-get update && apt-get install -q -y docker-ce docker-ce-cli containerd.io
-
+# Install docker for Debian
+RUN sudo apt-get update         && \
+    sudo apt-get install -y     \
+    apt-transport-https         \
+    ca-certificates             \
+    curl                        \
+    gnupg                       \
+    lsb-release
+RUN curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg  && \
+    echo \
+    "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/debian \
+    $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null 
+RUN sudo apt-get update                                             && \
+    sudo apt-get install -y docker-ce docker-ce-cli containerd.io
+RUN usermod -a -G docker coder                                      && \
+    sudo chown root:docker /var/run/docker.sock
 
 # Install SSH server
 RUN  apt-get install -q -y openssh-server > /dev/null
