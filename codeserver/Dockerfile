@@ -73,9 +73,16 @@ RUN  export PATH=$PATH:.:/usr/local/go/bin/               && \
      go get -v github.com/mitchellh/gox                   && \
      go get -v github.com/go-swagger/go-swagger
 
-RUN /usr/bin/code-server --install-extension ms-python.python     && \
-    /usr/bin/code-server --install-extension golang.go            && \
-    /usr/bin/code-server --install-extension jpotterm.simple-vim 
+# When python extension issue is fixed: https://github.com/microsoft/vscode-python/issues/12465
+# RUN /usr/bin/code-server --install-extension ms-python.python
+COPY --chown=coder:coder python-2020.10.332292344_vsixhub.com.vsix /tmp/python-2020.10.332292344_vsixhub.com.vsix
+COPY --chown=coder:coder settings.json  /home/coder/.local/share/code-server/User/settings.json
+
+RUN /usr/bin/code-server --install-extension /tmp/python-2020.10.332292344_vsixhub.com.vsix             && \
+    /usr/bin/code-server --install-extension golang.go                                                  && \
+    /usr/bin/code-server --install-extension jpotterm.simple-vim                                        && \
+    rm /tmp/python-2020.10.332292344_vsixhub.com.vsix                                                   && \   
+    /usr/bin/python3 -m pip install -U pylint --user 
 
 RUN mkdir -p /home/coder/workspace                    && \
     mkdir -p /home/coder/.local/bin                   && \
@@ -84,7 +91,6 @@ RUN mkdir -p /home/coder/workspace                    && \
 RUN git clone https://github.com/7onetella/users.git  /home/coder/workspace/users
 
 COPY --chown=coder:coder config.yml     /home/coder/.config/code-server/config.yaml 
-COPY --chown=coder:coder .vscode        /home/coder/workspace/.vscode
 COPY --chown=coder:coder .exports       /home/coder/.bashrc
 COPY --chown=coder:coder .gitconfig     /home/coder/.gitconfig
 COPY --chown=coder:coder entrypoint.sh  /home/coder/.local/bin/entrypoint.sh
