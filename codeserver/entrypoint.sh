@@ -11,4 +11,7 @@ echo SSH_PORT=$SSH_PORT
 echo HOST_IP=$HOST_IP
 echo UUID=$UUID
 
+# this deosn't work during docker build time
+sudo chown root:docker /var/run/docker.sock
+
 /usr/bin/entrypoint.sh --bind-addr 0.0.0.0:9090 /home/coder/workspace

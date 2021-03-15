@@ -44,8 +44,7 @@ RUN curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor
     $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null 
 RUN sudo apt-get update                                             && \
     sudo apt-get install -y docker-ce docker-ce-cli containerd.io
-RUN usermod -a -G docker coder                                      && \
-    sudo chown root:docker /var/run/docker.sock
+RUN usermod -a -G docker coder                                      
 
 # Install SSH server
 RUN  apt-get install -q -y openssh-server > /dev/null
