@@ -29,13 +29,13 @@ RUN curl -O https://dl.google.com/go/go"${GO_VERSION}".linux-amd64.tar.gz  && \
     rm go"${GO_VERSION}".linux-amd64.tar.gz                               
 
 USER coder
-RUN export PATH=$PATH:.:/usr/local/go/bin/            && \
-    mkdir -p ~/go                                     && \
-    go get -v golang.org/x/tools/gopls                && \
-    go get -v github.com/uudashr/gopkgs/v2/cmd/gopkgs && \
-    go get -v github.com/ramya-rao-a/go-outline       && \
-    go get -v github.com/go-delve/delve/cmd/dlv       && \
-    go get -v golang.org/x/lint/golint               
+# RUN export PATH=$PATH:.:/usr/local/go/bin/            && \
+#     mkdir -p ~/go                                     && \
+#     go get -v golang.org/x/tools/gopls                && \
+#     go get -v github.com/uudashr/gopkgs/v2/cmd/gopkgs && \
+#     go get -v github.com/ramya-rao-a/go-outline       && \
+#     go get -v github.com/go-delve/delve/cmd/dlv       && \
+#     go get -v golang.org/x/lint/golint               
 
 RUN cd ~/workspace                                    && \
     git clone https://github.com/7onetella/users.git 
