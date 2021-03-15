@@ -1,32 +1,57 @@
 FROM codercom/code-server:3.9.1 
 
-COPY --chown=coder:coder config.yml /home/coder/.config/code-server/config.yaml 
-COPY --chown=coder:coder .exports   /home/coder/.bashrc
-COPY --chown=coder:coder .gitconfig /home/coder/.gitconfig
-
-RUN mkdir -p /home/coder/workspace               && \
-    mkdir -p /home/coder/.local/bin              && \
-    chown -R coder:coder /home/coder/workspace   && \
-    /usr/bin/code-server --install-extension ms-python.python    && \
-    /usr/bin/code-server --install-extension golang.go           && \
-    /usr/bin/code-server --install-extension jpotterm.simple-vim 
-
-COPY --chown=coder:coder .vscode    /home/coder/workspace/.vscode
-COPY --chown=coder:coder node_install.sh /home/coder/.local/bin
-
 USER root
 RUN DEBIAN_FRONTEND=noninteractive apt-get update --fix-missing && apt-get install -y --no-install-recommends tzdata
 RUN apt-get update --fix-missing  && \
     apt-get -q -y  install           \
       python3                        \
       python3-pip                    \
-      gnupg-agent
+      `# Docker dependencies       ` \
+      apt-transport-https            \
+      ca-certificates                \
+      curl                           \
+      gnupg-agent                    \
+      software-properties-common     \
+      `# misc                      ` \
+      jq                             \
+      uuid
 
-ENV GO_VERSION 1.16.2
+
+# Install Node
+# CREDIT https://github.com/nodejs/docker-node/blob/dd05dd89c6e158a4893109e42d51cd0f5065d631/15/buster/Dockerfile
+# RUN  groupadd --gid 1000 node && useradd --uid 1000 --gid node --shell /bin/bash --create-home node
+COPY node_install.sh /root/
+RUN  chmod +x /root/node_install.sh  && \ 
+     /root/node_install.sh           && \ 
+     rm /root/node_install.sh
+
+
+# Install Ember CLI
+RUN npm install -g ember-cli
+
+
+# Docker install: https://docs.docker.com/engine/install/ubuntu/
+# RUN curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
+# RUN add-apt-repository \
+#    "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+#    $(lsb_release -cs) \
+#    stable"
+# RUN apt-get update && apt-get install -q -y docker-ce docker-ce-cli containerd.io
+
+
+# Install SSH server
+RUN  apt-get install -q -y openssh-server > /dev/null
+RUN  sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/'                 /etc/ssh/sshd_config
+RUN  sed -i 's/ChallengeResponseAuthentication no/ChallengeResponseAuthentication yes/' /etc/ssh/sshd_config
+COPY .ssh /home/coder/.ssh
+
+
 # Install GoLang
+ENV GO_VERSION 1.16.2
 RUN curl -O https://dl.google.com/go/go"${GO_VERSION}".linux-amd64.tar.gz  && \
     tar -xf go"${GO_VERSION}".linux-amd64.tar.gz -C /usr/local             && \
-    rm go"${GO_VERSION}".linux-amd64.tar.gz                               
+    rm go"${GO_VERSION}".linux-amd64.tar.gz    
+
 
 USER coder
 # RUN export PATH=$PATH:.:/usr/local/go/bin/            && \
@@ -36,10 +61,23 @@ USER coder
 #     go get -v github.com/ramya-rao-a/go-outline       && \
 #     go get -v github.com/go-delve/delve/cmd/dlv       && \
 #     go get -v golang.org/x/lint/golint               
+# RUN  export PATH=$PATH:.:/usr/local/go/bin/              && \
+#      go get -v 
 
-RUN cd ~/workspace                                    && \
-    git clone https://github.com/7onetella/users.git 
-# RUN chmod +x /home/coder/.local/bin/node_install.sh   && \
-#     /home/coder/.local/bin/node_install.sh    
+RUN /usr/bin/code-server --install-extension ms-python.python     && \
+    /usr/bin/code-server --install-extension golang.go            && \
+    /usr/bin/code-server --install-extension jpotterm.simple-vim 
+
+RUN mkdir -p /home/coder/workspace                    && \
+    mkdir -p /home/coder/.local/bin                   && \
+    chown -R coder:coder /home/coder/workspace        
+
+RUN git clone https://github.com/7onetella/users.git  /home/coder/workspace/users
+
+COPY --chown=coder:coder config.yml       /home/coder/.config/code-server/config.yaml 
+COPY --chown=coder:coder .vscode          /home/coder/workspace/.vscode
+COPY --chown=coder:coder .exports         /home/coder/.bashrc
+COPY --chown=coder:coder .gitconfig       /home/coder/.gitconfig
+
 
 ENTRYPOINT ["/usr/bin/entrypoint.sh", "--bind-addr", "0.0.0.0:8080", "/home/coder/workspace"]

@@ -37,35 +37,6 @@ RUN curl -O https://dl.google.com/go/go"${GO_VERSION}".linux-amd64.tar.gz  && \
     mkdir /go
 
 
-# Install Node
-# CREDIT https://github.com/nodejs/docker-node/blob/dd05dd89c6e158a4893109e42d51cd0f5065d631/15/buster/Dockerfile
-RUN groupadd --gid 1000 node \
-  && useradd --uid 1000 --gid node --shell /bin/bash --create-home node
-COPY /node_install.sh /root/
-RUN chmod +x node_install.sh && \ 
-    ./node_install.sh        && \ 
-    rm /root/node_install.sh
-
-
-# Install Ember CLI
-RUN npm install -g ember-cli
-
-
-# Docker install: https://docs.docker.com/engine/install/ubuntu/
-RUN curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
-RUN add-apt-repository \
-   "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
-   $(lsb_release -cs) \
-   stable"
-RUN apt-get update && apt-get install -q -y docker-ce docker-ce-cli containerd.io
-
-
-# Install SSH server
-RUN apt-get install -q -y openssh-server > /dev/null
-RUN sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/'                 /etc/ssh/sshd_config
-RUN sed -i 's/ChallengeResponseAuthentication no/ChallengeResponseAuthentication yes/' /etc/ssh/sshd_config
-COPY .ssh            /root/.ssh
-
 
 # Install tools
 RUN pip3 install vag
