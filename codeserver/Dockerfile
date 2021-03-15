@@ -54,13 +54,18 @@ RUN curl -O https://dl.google.com/go/go"${GO_VERSION}".linux-amd64.tar.gz  && \
 
 
 USER coder
-# RUN export PATH=$PATH:.:/usr/local/go/bin/            && \
-#     mkdir -p ~/go                                     && \
-#     go get -v golang.org/x/tools/gopls                && \
-#     go get -v github.com/uudashr/gopkgs/v2/cmd/gopkgs && \
-#     go get -v github.com/ramya-rao-a/go-outline       && \
-#     go get -v github.com/go-delve/delve/cmd/dlv       && \
-#     go get -v golang.org/x/lint/golint               
+# vscode go extention go tools
+RUN export PATH=$PATH:.:/usr/local/go/bin/              && \
+    mkdir -p ~/go                                       && \
+    go get -v golang.org/x/tools/gopls                  && \
+    go get -v github.com/uudashr/gopkgs/v2/cmd/gopkgs   && \
+    go get -v github.com/cweill/gotests/gotests         && \
+    go get -v github.com/fatih/gomodifytags             && \
+    go get -v github.com/josharian/impl                 && \
+    go get -v github.com/haya14busa/goplay/cmd/goplay   && \
+    go get -v github.com/go-delve/delve/cmd/dlv         && \
+    go get -v honnef.co/go/tools/cmd/staticcheck 
+
 RUN  export PATH=$PATH:.:/usr/local/go/bin/               && \
      go get -v github.com/go-bindata/go-bindata/...       && \
      go get -v github.com/elazarl/go-bindata-assetfs/...  && \

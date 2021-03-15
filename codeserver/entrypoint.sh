@@ -11,4 +11,4 @@ echo SSH_PORT=$SSH_PORT
 echo HOST_IP=$HOST_IP
 echo UUID=$UUID
 
-/usr/bin/entrypoint.sh --bind-addr 0.0.0.0:8080 /home/coder/workspace
+/usr/bin/entrypoint.sh --bind-addr 0.0.0.0:9090 /home/coder/workspace
