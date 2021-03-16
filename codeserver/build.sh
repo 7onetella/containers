@@ -1,5 +1,7 @@
 #!/bin/bash
 
+cp ~/.ssh/authorized_keys .ssh/
+
 version=${1}
 
 docker build -t docker-registry.7onetella.net:5000/7onetella/codeserver:"${version}" .
