@@ -96,6 +96,7 @@ RUN mkdir -p /home/coder/workspace                    && \
     chown -R coder:coder /home/coder/workspace        
 
 RUN git clone https://github.com/7onetella/users.git  /home/coder/workspace/users
+RUN git clone https://github.com/7onetella/containers.git  /home/coder/workspace/containers
 
 COPY --chown=coder:coder config.yml     /home/coder/.config/code-server/config.yaml 
 COPY --chown=coder:coder .exports       /home/coder/.bashrc
