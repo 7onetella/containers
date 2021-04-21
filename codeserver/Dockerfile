@@ -81,8 +81,8 @@ RUN  export PATH=$PATH:.:/usr/local/go/bin/               && \
      go get -v github.com/go-swagger/go-swagger
 
 # When python extension issue is fixed: https://github.com/microsoft/vscode-python/issues/12465
-# RUN /usr/bin/code-server --install-extension ms-python.python
-COPY --chown=coder:coder python-2020.10.332292344_vsixhub.com.vsix /tmp/python-2020.10.332292344_vsixhub.com.vsix
+RUN /usr/bin/code-server --install-extension ms-python.python
+# COPY --chown=coder:coder python-2020.10.332292344_vsixhub.com.vsix /tmp/python-2020.10.332292344_vsixhub.com.vsix
 COPY --chown=coder:coder settings.json  /home/coder/.local/share/code-server/User/settings.json
 
 RUN /usr/bin/code-server --install-extension /tmp/python-2020.10.332292344_vsixhub.com.vsix             && \
