@@ -1,4 +1,4 @@
-FROM codercom/code-server:3.9.1 
+FROM codercom/code-server:3.9.3
 
 USER root
 RUN DEBIAN_FRONTEND=noninteractive apt-get update --fix-missing && apt-get install -y --no-install-recommends tzdata
@@ -80,15 +80,11 @@ RUN  export PATH=$PATH:.:/usr/local/go/bin/               && \
      go get -v github.com/mitchellh/gox                   && \
      go get -v github.com/go-swagger/go-swagger
 
-# When python extension issue is fixed: https://github.com/microsoft/vscode-python/issues/12465
 RUN /usr/bin/code-server --install-extension ms-python.python
-# COPY --chown=coder:coder python-2020.10.332292344_vsixhub.com.vsix /tmp/python-2020.10.332292344_vsixhub.com.vsix
 COPY --chown=coder:coder settings.json  /home/coder/.local/share/code-server/User/settings.json
 
-RUN /usr/bin/code-server --install-extension /tmp/python-2020.10.332292344_vsixhub.com.vsix             && \
-    /usr/bin/code-server --install-extension golang.go                                                  && \
+RUN /usr/bin/code-server --install-extension golang.go                                                  && \
     /usr/bin/code-server --install-extension jpotterm.simple-vim                                        && \
-    rm /tmp/python-2020.10.332292344_vsixhub.com.vsix                                                   && \   
     /usr/bin/python3 -m pip install -U pylint --user 
 
 RUN mkdir -p /home/coder/workspace                    && \
