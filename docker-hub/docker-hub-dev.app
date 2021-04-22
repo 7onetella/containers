@@ -3,5 +3,5 @@ port   = 80
 memory = 128
 health = /
 
-env.URL           = http://docker-registry.7onetella.net:5000
+env.URL           = https://docker-registry.7onetella.net
 env.DELETE_IMAGES = true
