@@ -5,10 +5,12 @@ export HOST_IP=$(curl -s "http://consul.7onetella.net:8500/v1/health/service/bui
 export UUID=$(uuid)
 export TERM=xterm
 
-/etc/init.d/ssh restart
+sudo /etc/init.d/ssh restart
 
 echo SSH_PORT=$SSH_PORT
 echo HOST_IP=$HOST_IP
 echo UUID=$UUID
+
+sudo /usr/local/bin/fixuid
 
 sleep 1000000000000000

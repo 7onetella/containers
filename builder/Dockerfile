@@ -14,6 +14,7 @@ RUN apt-get update --fix-missing  &&    \
       git                               \
       curl                              \
       vim                               \
+      sudo                              \
       `# Docker dependencies       `    \
       apt-transport-https               \
       ca-certificates                   \
@@ -30,7 +31,6 @@ RUN apt-get update --fix-missing  &&    \
 
 
 RUN adduser --gecos '' --disabled-password builder                      && \
-    mkdir -p /etc/sudoers.d/                                            && \
     echo "builder ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers.d/nopasswd
 
 
@@ -39,8 +39,7 @@ RUN ARCH="$(dpkg --print-architecture)"                                 && \
     chown root:root /usr/local/bin/fixuid                               && \
     chmod 4755 /usr/local/bin/fixuid                                    && \
     mkdir -p /etc/fixuid                                                && \
-    printf "user: builder\ngroup: builder\n" > /etc/fixuid/config.yml   && \
-    /usr/local/bin/fixuid
+    printf "user: builder\ngroup: builder\n" > /etc/fixuid/config.yml   
 
 
 # Install GoLang
@@ -56,21 +55,22 @@ RUN curl -s -O "https://releases.hashicorp.com/nomad/${NOMAD_VERSION}/nomad_${NO
     chmod +x ./nomad && mv nomad /usr/local/bin && rm nomad*.zip
 
 
-# USER 1000
-# ENV USER=builder
-# WORKDIR /home/builder
-
-
 # Set up remote ssh environment
 COPY .exports         /home/builder/.bashrc
 
 
 # Install tools
-RUN ls -la /home/builder && pip3 install --user vag
+RUN sudo pip3 install vag
     
 
 # https://www.tutorialspoint.com/run-vs-cmd-vs-entrypoint-in-docker
 COPY /entrypoint.sh /
-RUN chmod +x  /entrypoint.sh
+RUN chmod +x  /entrypoint.sh                && \
+    chown -R builder:builder /home/builder
 EXPOSE 22
+
+USER 1000
+ENV USER=builder
+WORKDIR /home/builder
+
 CMD [ "/entrypoint.sh" ]
