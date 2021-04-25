@@ -1,12 +1,12 @@
 #!/bin/bash
 
-set -x
+set -xe
 
 version=${1}
 
-cp ~/id_rsa.pub .ssh/authorized_keys
+cp ~/.ssh/id_rsa.pub .ssh/authorized_keys
 
-image=docker-registry.7onetella.net:5000/7onetella/builder:"${version}"
+image=docker-registry.7onetella.net/7onetella/builder:"${version}"
 
 docker build -t "${image}" .
 

@@ -2,7 +2,7 @@ FROM ubuntu:20.04
 
 WORKDIR /root
 
-ENV GO_VERSION 1.15.6
+ENV GO_VERSION 1.16.3
 ENV NOMAD_VERSION 1.0.0
 
 # fix tzdata before docker dependencies install

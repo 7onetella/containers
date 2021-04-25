@@ -17,14 +17,15 @@
         task "builder-service" {
             driver = "docker"
             config {
-                image = "docker-registry.7onetella.net:5000/7onetella/builder:__tag__"
+                image = "docker-registry.7onetella.net/7onetella/builder:__tag__"
                 ports = [ "ssh" ]
                 volumes = [ "/var/run/docker.sock:/var/run/docker.sock" ]
 
+                /*
                 logging {
                    type = "elasticsearch"
                    config {
-                        elasticsearch-url="http://elasticsearch-dev.7onetella.net:80"
+                        elasticsearch-url="https://elasticsearch-dev.7onetella.net:443"
                         elasticsearch-sniff=false
                         elasticsearch-index="docker-%F"
                         elasticsearch-type="_doc"
@@ -37,6 +38,7 @@
                         elasticsearch-bulk-flush-interval="1s"
                     }
                 }
+                */
             }
 
             resources {
@@ -49,7 +51,7 @@
             }
 
             env {
-                URL = "http://docker-registry.7onetella.net:5000"
+                URL = "https://docker-registry.7onetella.net"
                 DELETE_IMAGES = "true"
             }
         }
