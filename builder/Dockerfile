@@ -26,6 +26,7 @@ RUN apt-get update --fix-missing  &&    \
       uuid                              \
       `# nomad install needs zip   `    \
       zip                               \
+      openssh-server                    \
       zsh                         &&    \
       rm -rf /var/lib/apt/lists/*
 
@@ -40,6 +41,10 @@ RUN ARCH="$(dpkg --print-architecture)"                                 && \
     chmod 4755 /usr/local/bin/fixuid                                    && \
     mkdir -p /etc/fixuid                                                && \
     printf "user: builder\ngroup: builder\n" > /etc/fixuid/config.yml   
+
+
+# Enable SSH server
+RUN  sed -i 's/ChallengeResponseAuthentication no/ChallengeResponseAuthentication yes/' /etc/ssh/sshd_config
 
 
 # Install GoLang
@@ -65,6 +70,7 @@ RUN sudo pip3 install vag
 
 # https://www.tutorialspoint.com/run-vs-cmd-vs-entrypoint-in-docker
 COPY /entrypoint.sh /
+COPY .ssh /home/builder/.ssh
 RUN chmod +x  /entrypoint.sh                && \
     chown -R builder:builder /home/builder
 EXPOSE 22
