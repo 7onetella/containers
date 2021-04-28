@@ -93,5 +93,7 @@ USER 1000
 ENV USER=builder
 WORKDIR /home/builder
 
+RUN touch /home/builder/.hushlogin
+
 EXPOSE 22
 CMD [ "/entrypoint.sh" ]
