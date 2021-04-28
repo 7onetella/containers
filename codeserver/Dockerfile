@@ -62,9 +62,9 @@ RUN curl -O https://dl.google.com/go/go"${GO_VERSION}".linux-amd64.tar.gz  && \
 USER coder
 # vscode go extention go tools
 RUN export PATH=$PATH:.:/usr/local/go/bin/              && \
-    export GOPATH=/go                                   && \
-    sudo mkdir -p /go                                   && \
-    sudo chown coder:coder /go                          && \
+    export GOPATH=/home/coder/go                        && \
+    sudo mkdir -p /home/coder/go                        && \
+    sudo chown coder:coder /home/coder/go               && \
     go get -v golang.org/x/tools/gopls                  && \
     go get -v github.com/uudashr/gopkgs/v2/cmd/gopkgs   && \
     go get -v github.com/cweill/gotests/gotests         && \
@@ -73,10 +73,8 @@ RUN export PATH=$PATH:.:/usr/local/go/bin/              && \
     go get -v github.com/haya14busa/goplay/cmd/goplay   && \
     go get -v github.com/go-delve/delve/cmd/dlv         && \
     go get -v honnef.co/go/tools/cmd/staticcheck        && \
-    go get -v github.com/ramya-rao-a/go-outline
-
-RUN export PATH=$PATH:.:/usr/local/go/bin/               && \
-    export GOPATH=/go                                    && \
+    go get -v github.com/ramya-rao-a/go-outline         && \
+    `# project specific libraries `                      && \
     go get -v github.com/go-bindata/go-bindata/...       && \
     go get -v github.com/elazarl/go-bindata-assetfs/...  && \
     go get -v github.com/markbates/refresh               && \
@@ -93,7 +91,7 @@ RUN /usr/bin/code-server --install-extension golang.go                          
 RUN touch /home/coder/.hushlogin                    && \
     mkdir -p /home/coder/workspace                  && \
     mkdir -p /home/coder/.local/bin                 && \
-    chown -R coder:coder /home/coder        
+    chown -R coder:coder /home/coder/workspace        
 
 RUN git clone https://github.com/7onetella/users.git  /home/coder/workspace/users
 RUN git clone https://github.com/7onetella/containers.git  /home/coder/workspace/containers
