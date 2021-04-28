@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 cp ~/.ssh/authorized_keys .ssh/
 
 version=${1}

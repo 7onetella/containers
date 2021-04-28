@@ -62,7 +62,9 @@ RUN curl -O https://dl.google.com/go/go"${GO_VERSION}".linux-amd64.tar.gz  && \
 USER coder
 # vscode go extention go tools
 RUN export PATH=$PATH:.:/usr/local/go/bin/              && \
-    mkdir -p ~/go                                       && \
+    export GOPATH=/go                                   && \
+    sudo mkdir -p /go                                   && \
+    sudo chown coder:coder /go                          && \
     go get -v golang.org/x/tools/gopls                  && \
     go get -v github.com/uudashr/gopkgs/v2/cmd/gopkgs   && \
     go get -v github.com/cweill/gotests/gotests         && \
@@ -73,12 +75,13 @@ RUN export PATH=$PATH:.:/usr/local/go/bin/              && \
     go get -v honnef.co/go/tools/cmd/staticcheck        && \
     go get -v github.com/ramya-rao-a/go-outline
 
-RUN  export PATH=$PATH:.:/usr/local/go/bin/               && \
-     go get -v github.com/go-bindata/go-bindata/...       && \
-     go get -v github.com/elazarl/go-bindata-assetfs/...  && \
-     go get -v github.com/markbates/refresh               && \
-     go get -v github.com/mitchellh/gox                   && \
-     go get -v github.com/go-swagger/go-swagger
+RUN export PATH=$PATH:.:/usr/local/go/bin/               && \
+    export GOPATH=/go                                    && \
+    go get -v github.com/go-bindata/go-bindata/...       && \
+    go get -v github.com/elazarl/go-bindata-assetfs/...  && \
+    go get -v github.com/markbates/refresh               && \
+    go get -v github.com/mitchellh/gox                   && \
+    go get -v github.com/go-swagger/go-swagger
 
 RUN /usr/bin/code-server --install-extension ms-python.python
 COPY --chown=coder:coder settings.json  /home/coder/.local/share/code-server/User/settings.json
