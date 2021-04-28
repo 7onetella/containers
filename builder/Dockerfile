@@ -70,13 +70,15 @@ RUN sudo pip3 install vag
 
 # https://www.tutorialspoint.com/run-vs-cmd-vs-entrypoint-in-docker
 COPY /entrypoint.sh /
+
 COPY .ssh /home/builder/.ssh
 RUN chmod +x  /entrypoint.sh                && \
-    chown -R builder:builder /home/builder
-EXPOSE 22
+    chown -R builder:builder /home/builder  && \
+    chown -R builder:builder /go            
 
 USER 1000
 ENV USER=builder
 WORKDIR /home/builder
 
+EXPOSE 22
 CMD [ "/entrypoint.sh" ]

@@ -11,6 +11,5 @@ echo SSH_PORT=$SSH_PORT
 echo HOST_IP=$HOST_IP
 echo UUID=$UUID
 
-sudo /usr/local/bin/fixuid
-
+#sudo /usr/local/bin/fixuid
 sleep 1000000000000000
