@@ -68,6 +68,19 @@ COPY .exports         /home/builder/.bashrc
 RUN sudo pip3 install vag
     
 
+# Install Node
+# CREDIT https://github.com/nodejs/docker-node/blob/dd05dd89c6e158a4893109e42d51cd0f5065d631/15/buster/Dockerfile
+# RUN  groupadd --gid 1000 node && useradd --uid 1000 --gid node --shell /bin/bash --create-home node
+COPY node_install.sh /root/
+RUN  chmod +x /root/node_install.sh  && \ 
+     /root/node_install.sh           && \ 
+     rm /root/node_install.sh
+
+
+# Install Ember CLI
+RUN npm install -g ember-cli
+
+
 # https://www.tutorialspoint.com/run-vs-cmd-vs-entrypoint-in-docker
 COPY /entrypoint.sh /
 
