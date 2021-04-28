@@ -87,9 +87,10 @@ RUN /usr/bin/code-server --install-extension golang.go                          
     /usr/bin/code-server --install-extension jpotterm.simple-vim                                        && \
     /usr/bin/python3 -m pip install -U pylint --user 
 
-RUN mkdir -p /home/coder/workspace                    && \
-    mkdir -p /home/coder/.local/bin                   && \
-    chown -R coder:coder /home/coder/workspace        
+RUN touch /home/coder/.hushlogin                    && \
+    mkdir -p /home/coder/workspace                  && \
+    mkdir -p /home/coder/.local/bin                 && \
+    chown -R coder:coder /home/coder        
 
 RUN git clone https://github.com/7onetella/users.git  /home/coder/workspace/users
 RUN git clone https://github.com/7onetella/containers.git  /home/coder/workspace/containers
