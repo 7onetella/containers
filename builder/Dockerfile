@@ -31,7 +31,7 @@ RUN apt-get update --fix-missing  &&    \
       rm -rf /var/lib/apt/lists/*
 
 
-RUN adduser --gecos '' --disabled-password builder                      && \
+RUN adduser --shell /usr/bin/zsh --gecos '' --disabled-password builder && \
     echo "builder ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers.d/nopasswd
 
 
@@ -79,6 +79,12 @@ RUN  chmod +x /root/node_install.sh  && \
 
 # Install Ember CLI
 RUN npm install -g ember-cli
+
+
+RUN  mkdir -p "/home/builder/.zsh"                                                  && \
+     git clone https://github.com/sindresorhus/pure.git "/home/builder/.zsh/pure"   && \
+     chown -R builder:builder /home/builder/.zsh                             
+COPY --chown=builder:builder .zshrc     /home/builder/.zshrc
 
 
 # https://www.tutorialspoint.com/run-vs-cmd-vs-entrypoint-in-docker
