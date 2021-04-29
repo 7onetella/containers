@@ -59,6 +59,14 @@ RUN curl -O https://dl.google.com/go/go"${GO_VERSION}".linux-amd64.tar.gz  && \
     rm go"${GO_VERSION}".linux-amd64.tar.gz    
 
 
+RUN  apt-get install -y zsh                                                         && \
+     chsh --shell /usr/bin/zsh coder                                                && \
+     mkdir -p "/home/coder/.zsh"                                                    && \
+     git clone https://github.com/sindresorhus/pure.git "/home/coder/.zsh/pure"     && \
+     chown -R coder:coder /home/coder/.zsh                             
+COPY --chown=coder:coder .zshrc     /home/coder/.zshrc
+
+
 USER coder
 # vscode go extention go tools
 RUN export PATH=$PATH:.:/usr/local/go/bin/              && \
