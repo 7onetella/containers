@@ -6,18 +6,18 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update --fix-missing && apt-get insta
 RUN apt-get update && apt-get install -y    \
     curl                                    \
     dumb-init                               \
-    zsh                                     \
+    git                                     \
     htop                                    \
     locales                                 \
+    lsb-release                             \
     man                                     \
     nano                                    \
-    git                                     \
-    procps                                  \
     openssh-client                          \
     openssh-server                          \
+    procps                                  \
     sudo                                    \
     vim.tiny                                \
-    lsb-release                             \
+    zsh                                     \
   && rm -rf /var/lib/apt/lists/*
 
 ENV LANG=en_US.UTF-8
