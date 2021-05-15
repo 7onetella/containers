@@ -1,0 +1,8 @@
+{
+    "workbench.preferredDarkColorTheme": "Visual Studio Dark",
+    "editor.cursorStyle": "block",
+    "workbench.colorTheme": "Default Dark+",
+    "editor.minimap.enabled": false,
+    "go.useLanguageServer": true,
+    "extensions.autoUpdate": false
+}
