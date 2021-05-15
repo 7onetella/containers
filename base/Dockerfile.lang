@@ -21,3 +21,7 @@ COPY node_install.sh /root/
 RUN  chmod +x /root/node_install.sh  && \ 
      /root/node_install.sh           && \ 
      rm /root/node_install.sh
+
+
+# Install Ember CLI
+RUN npm install -g ember-cli
