@@ -4,7 +4,7 @@ set -x
 
 cp ~/.ssh/authorized_keys .ssh/
 
-version=${1}
+version=$(vag docker version patch nginx-dev)
 
 docker build . -t docker-registry.7onetella.net/7onetella/nginx:"${version}" -f Dockerfile
 
