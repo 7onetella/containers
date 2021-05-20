@@ -34,17 +34,14 @@ RUN export PATH=$PATH:.:/usr/local/go/bin/                  && \
     go get -v github.com/go-swagger/go-swagger
 
 # vscode extention
+#   /usr/bin/code-server --install-extension jpotterm.simple-vim    && \
 RUN /usr/bin/code-server --install-extension ms-python.python       && \               
     /usr/bin/code-server --install-extension golang.go              && \
-    /usr/bin/code-server --install-extension jpotterm.simple-vim    && \
     /usr/bin/python3 -m pip install -U pylint --user 
 
 RUN mkdir -p /home/coder/workspace                  && \
     mkdir -p /home/coder/.local/bin                 && \
     chown -R coder:coder /home/coder/workspace        
-
-# RUN git clone https://github.com/7onetella/users.git        /home/coder/workspace/users
-# RUN git clone https://github.com/7onetella/containers.git   /home/coder/workspace/containers
 
 COPY --chown=coder:coder settings.json  /home/coder/.local/share/code-server/User/settings.json
 COPY --chown=coder:coder config.yml     /home/coder/.config/code-server/config.yaml 

@@ -1,5 +1,5 @@
 [credential]
         helper = store
 [user]
-	name = mo
-	email = {mr.mo.ali@gmail.com}
+	name = __name__
+	email = __email__
