@@ -2,11 +2,11 @@
 
 set -x
 
-userid=$1    #f121
+userid=$1    
 
 password=$2
 
-service=codeserver-${userid}
+service=vscode-${userid}
 
 group=public
 
