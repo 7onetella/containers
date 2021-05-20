@@ -32,4 +32,4 @@ RUN sed -i "s/# en_US.UTF-8/en_US.UTF-8/" /etc/locale.gen && locale-gen         
     sed -i 's/ChallengeResponseAuthentication no/ChallengeResponseAuthentication yes/' /etc/ssh/sshd_config
 
 
-COPY --chown=${usernamer}:${username} .zshrc     /home/${username}/.zshrc
+COPY --chown=coder:coder .zshrc     /home/${username}/.zshrc
