@@ -1,4 +1,4 @@
 bind-addr: 0.0.0.0:9090
 auth: password
-password: moisawesome
+password: __secret__
 cert: false

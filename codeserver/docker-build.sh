@@ -1,9 +1,23 @@
 #!/bin/bash -e
 
-version=${1}
+set -x
 
-docker build -t docker-registry.7onetella.net/7onetella/codeserver:"${version}" .
+password=$1
 
-docker push docker-registry.7onetella.net/7onetella/codeserver:"${version}"
+service=codeserver-f121
 
-vag docker deploy codeserver-dev:"${version}"
+group=public
+
+version=1.0.0
+
+# version=$(vag docker version patch codeserver-public)
+
+touch config.yml
+
+cat config.yml.tpl | sed 's/__secret__/'"${password}"'/g' > config.yml
+
+docker build -t docker-registry.7onetella.net/7onetella/${service}:"${version}" .
+
+docker push docker-registry.7onetella.net/7onetella/${service}:"${version}"
+
+vag docker deploy ${service}-${group}:"${version}"
