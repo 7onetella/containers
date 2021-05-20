@@ -1,4 +1,4 @@
-FROM lang:latest
+FROM docker-registry.7onetella.net/7onetella/languages:1.0.0
 
 ENV username=coder
 
@@ -37,8 +37,8 @@ RUN curl -s -O "https://releases.hashicorp.com/nomad/${NOMAD_VERSION}/nomad_${NO
 RUN sudo pip3 install vag
 
 
-COPY /builder/entrypoint.sh /
-COPY /builder/.ssh /home/${username}/.ssh
+COPY entrypoint.sh /
+COPY .ssh /home/${username}/.ssh
 RUN chmod +x  /entrypoint.sh                            && \
     chown -R ${username}:${username} /home/${username}  && \
     chown -R ${username}:${username} /go            

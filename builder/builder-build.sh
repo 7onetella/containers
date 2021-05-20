@@ -2,7 +2,7 @@
 
 set -x
 
-cp ~/.ssh/authorized_keys builder/.ssh/
+cp ~/.ssh/authorized_keys .ssh/
 
 service=builder
 
@@ -10,7 +10,7 @@ group=backend
 
 version=$(vag docker version patch ${service}-${group})
 
-docker build . -t docker-registry.7onetella.net/7onetella/${service}:"${version}" -f Dockerfile.builder
+docker build -t docker-registry.7onetella.net/7onetella/${service}:"${version}" .
 
 docker push docker-registry.7onetella.net/7onetella/${service}:"${version}"
 
