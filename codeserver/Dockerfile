@@ -1,4 +1,4 @@
-FROM docker-registry.7onetella.net/7onetella/builder:1.0.11 as builder
+FROM docker-registry.7onetella.net/7onetella/builder:1.0.1
 
 USER 1000
 ENV USER=coder
