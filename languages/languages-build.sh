@@ -2,7 +2,7 @@
 
 set -x
 
-repo=base
+repo=languages
 
 version=1.0.0
 
