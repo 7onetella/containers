@@ -2,12 +2,18 @@
 
 set -x
 
+service=nginx
+
+group=public
+
 cp ~/.ssh/authorized_keys .ssh/
 
-version=$(vag docker version patch nginx-dev)
+version=$(vag docker version patch ${service}-${group})
 
-docker build . -t docker-registry.7onetella.net/7onetella/nginx:"${version}" -f Dockerfile
+docker build -t docker-registry.7onetella.net/7onetella/${service}:"${version}" .
 
-docker push docker-registry.7onetella.net/7onetella/nginx:"${version}"
+docker push docker-registry.7onetella.net/7onetella/${service}:"${version}"
 
-vag docker deploy nginx-dev:"${version}"
+export DOCKER_REGISTRY=docker-registry.7onetella.net
+
+vag docker deploy ${service}-${group}:"${version}"

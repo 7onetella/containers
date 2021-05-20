@@ -1,4 +1,4 @@
-FROM base:latest
+FROM docker-registry.7onetella.net/7onetella/base:1.0.0
 
 ENV username=coder
 
