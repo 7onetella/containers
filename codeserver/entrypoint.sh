@@ -12,4 +12,4 @@ nohup /home/coder/.local/bin/github_checkout_all.sh &
 
 nohup /home/coder/.local/bin/runtime_install.sh &
 
-dumb-init /usr/bin/code-server --bind-addr 0.0.0.0:8080 /home/coder/workspace
+dumb-init /usr/bin/code-server --bind-addr 0.0.0.0:9991 /home/coder/workspace

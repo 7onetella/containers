@@ -16,7 +16,7 @@ COPY --chown=coder:coder runtime_install.sh         /home/coder/.local/bin/runti
 
 RUN chmod +x /home/coder/.local/bin/entrypoint.sh
 
-EXPOSE 8080
+EXPOSE 9991
 EXPOSE 22
 
 ENTRYPOINT ["/home/coder/.local/bin/entrypoint.sh"]

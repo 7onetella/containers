@@ -1,5 +1,5 @@
 [vscode]
 memory  = 2048
-port    = 8080
+port    = 9991
 health  = /
 host    = vscode-__userid__.curiosityworks.org
