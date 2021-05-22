@@ -47,7 +47,7 @@ COPY --chown=coder:coder settings.json  /home/coder/.local/share/code-server/Use
 COPY --chown=coder:coder config.yml     /home/coder/.config/code-server/config.yaml 
 COPY --chown=coder:coder .gitconfig     /home/coder/.gitconfig
 COPY --chown=coder:coder entrypoint.sh  /home/coder/.local/bin/entrypoint.sh
-COPY --chown=coder:coder .ssh           /home/coder/
+COPY --chown=coder:coder .ssh/          /home/coder/.ssh
 
 RUN chmod +x /home/coder/.local/bin/entrypoint.sh
 

@@ -26,6 +26,8 @@ docker build -t docker-registry.7onetella.net/7onetella/${service}:"${version}" 
 
 docker push docker-registry.7onetella.net/7onetella/${service}:"${version}"
 
+nomad job stop -purge ${service} || true
+
 vag docker deploy docker-registry.7onetella.net/7onetella/${service}-${group}:"${version}"
 
 rm config.yml
