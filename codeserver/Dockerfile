@@ -5,7 +5,7 @@ ENV USER=coder
 WORKDIR /home/coder
 USER coder
 
-ENV CDR_VERSION=3.10.0
+ENV CDR_VERSION=3.10.2
 RUN curl -sfOL https://github.com/cdr/code-server/releases/download/v${CDR_VERSION}/code-server_${CDR_VERSION}_amd64.deb    && \
     sudo dpkg -i code-server_${CDR_VERSION}_amd64.deb                                                                       && \
     sudo systemctl enable code-server@$USER                                                                                 && \
@@ -47,6 +47,7 @@ COPY --chown=coder:coder settings.json  /home/coder/.local/share/code-server/Use
 COPY --chown=coder:coder config.yml     /home/coder/.config/code-server/config.yaml 
 COPY --chown=coder:coder .gitconfig     /home/coder/.gitconfig
 COPY --chown=coder:coder entrypoint.sh  /home/coder/.local/bin/entrypoint.sh
+COPY --chown=coder:coder .ssh           /home/coder/
 
 RUN chmod +x /home/coder/.local/bin/entrypoint.sh
 
