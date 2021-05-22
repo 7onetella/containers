@@ -1,4 +1,6 @@
-#!/bin/bash
+#!/bin/bash -e
+
+set -x
 
 sudo /etc/init.d/ssh restart
 

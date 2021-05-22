@@ -1,5 +1,9 @@
 FROM docker-registry.7onetella.net/7onetella/codeserver-base:1.0.0
 
+RUN mkdir -p /home/coder/workspace                  && \
+    mkdir -p /home/coder/.local/bin                 && \
+    chown -R coder:coder /home/coder/workspace        
+
 COPY --chown=coder:coder settings.json              /home/coder/.local/share/code-server/User/settings.json
 COPY --chown=coder:coder config.yml                 /home/coder/.config/code-server/config.yaml 
 COPY --chown=coder:coder .gitconfig                 /home/coder/.gitconfig
