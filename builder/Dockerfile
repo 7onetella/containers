@@ -1,4 +1,4 @@
-FROM docker-registry.7onetella.net/7onetella/languages:1.0.0
+FROM docker-registry.7onetella.net/7onetella/languages:1.0.1
 
 ENV username=coder
 

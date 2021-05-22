@@ -1,6 +1,6 @@
 #!/bin/bash
 
-export NODE_VERSION=15.4.0
+export NODE_VERSION=14.7.0
 
 # gpg keys listed at https://github.com/nodejs/node#release-keys
 
