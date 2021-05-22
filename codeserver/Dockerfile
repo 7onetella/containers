@@ -43,11 +43,12 @@ RUN mkdir -p /home/coder/workspace                  && \
     mkdir -p /home/coder/.local/bin                 && \
     chown -R coder:coder /home/coder/workspace        
 
-COPY --chown=coder:coder settings.json  /home/coder/.local/share/code-server/User/settings.json
-COPY --chown=coder:coder config.yml     /home/coder/.config/code-server/config.yaml 
-COPY --chown=coder:coder .gitconfig     /home/coder/.gitconfig
-COPY --chown=coder:coder entrypoint.sh  /home/coder/.local/bin/entrypoint.sh
-COPY --chown=coder:coder .ssh/          /home/coder/.ssh
+COPY --chown=coder:coder settings.json              /home/coder/.local/share/code-server/User/settings.json
+COPY --chown=coder:coder config.yml                 /home/coder/.config/code-server/config.yaml 
+COPY --chown=coder:coder .gitconfig                 /home/coder/.gitconfig
+COPY --chown=coder:coder entrypoint.sh              /home/coder/.local/bin/entrypoint.sh
+COPY --chown=coder:coder .ssh/                      /home/coder/.ssh
+COPY --chown=coder:coder github_checkout_all.sh     /home/coder/.local/bin/github_checkout_all.sh
 
 RUN chmod +x /home/coder/.local/bin/entrypoint.sh
 
