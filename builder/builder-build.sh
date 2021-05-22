@@ -14,6 +14,4 @@ docker build -t docker-registry.7onetella.net/7onetella/${service}:"${version}" 
 
 docker push docker-registry.7onetella.net/7onetella/${service}:"${version}"
 
-export DOCKER_REGISTRY=docker-registry.7onetella.net
-
-vag docker deploy ${service}-${group}:"${version}"
+vag docker deploy docker-registry.7onetella.net/7onetella/${service}-${group}:"${version}"
