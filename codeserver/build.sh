@@ -12,7 +12,7 @@ service=vscode-${userid}
 
 group=public
 
-cp ~/.ssh/id_rsa .ssh/
+cp ~/.ssh/id_rsa .ssh
 
 version=$(vag docker version patch ${service}-${group})
 
