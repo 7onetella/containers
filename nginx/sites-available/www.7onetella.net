@@ -1,0 +1,5 @@
+  server {
+    server_name www.7onetella.net;
+
+    root /var/www/www.7onetella.net/htdocs;
+  }

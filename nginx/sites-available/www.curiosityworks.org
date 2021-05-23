@@ -1,0 +1,5 @@
+  server {
+    server_name www.curiosityworks.org;
+
+    root /var/www/www.curiosityworks.org/htdocs;
+  }
