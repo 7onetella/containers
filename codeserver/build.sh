@@ -33,3 +33,5 @@ vag docker deploy docker-registry.7onetella.net/7onetella/${service}-${group}:"$
 rm config.yml
 
 rm vscode-${userid}-public.app
+
+rm .gitconfig

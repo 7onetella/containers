@@ -2,4 +2,5 @@
 memory  = 128
 port    = 80
 health  = /
-host    = www.curiosityworks.org
+tag.1   = urlprefix-www.curiosityworks.org/
+tag.2   = urlprefix-www.7onetella.net/
