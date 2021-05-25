@@ -2,3 +2,6 @@ config.yml
 *.app
 .ssh
 .gitconfig
+profile-*.yml
+repositories.txt
+runtime_install.sh

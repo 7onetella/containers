@@ -8,7 +8,7 @@ sudo /etc/init.d/ssh restart
 
 sudo chown root:docker /var/run/docker.sock
 
-nohup /home/coder/.local/bin/github_checkout_all.sh &
+nohup /home/coder/.local/bin/git_clone.sh &
 
 nohup /home/coder/.local/bin/runtime_install.sh &
 
