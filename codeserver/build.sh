@@ -1,7 +1,5 @@
 #!/bin/bash -e
 
-set -x
-
 userid=$1    
 
 password=$2
@@ -11,6 +9,8 @@ email=$3
 service=vscode-${userid}
 
 group=public
+
+set -x
 
 version=$(vag docker version patch ${service}-${group})
 
