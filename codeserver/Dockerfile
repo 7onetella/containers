@@ -9,7 +9,7 @@ COPY --chown=coder:coder config.yml                 /home/coder/.config/code-ser
 COPY --chown=coder:coder .gitconfig                 /home/coder/.gitconfig
 COPY --chown=coder:coder entrypoint.sh              /home/coder/.local/bin/entrypoint.sh
 COPY --chown=coder:coder .ssh/                      /home/coder/.ssh
-COPY --chown=coder:coder github_checkout_all.sh     /home/coder/.local/bin/github_checkout_all.sh
+COPY --chown=coder:coder git_clone.sh               /home/coder/.local/bin/git_clone.sh
 COPY --chown=coder:coder repositories.txt           /home/coder/.local/bin/repositories.txt
 COPY --chown=coder:coder runtime_install.sh         /home/coder/.local/bin/runtime_install.sh
 
