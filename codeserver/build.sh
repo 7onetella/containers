@@ -12,7 +12,7 @@ set -x
 
 version=$(vag docker version patch ${service}-${group})
 
-vag cx get-profile ${ide} ${userid} | vag docker pre-build 
+vag cx get-profile ${userid} ${ide} | vag docker pre-build 
 
 docker build -t docker-registry.7onetella.net/7onetella/${service}:${version} .
 
