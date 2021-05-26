@@ -10,7 +10,7 @@ set -x
 
 version=$(vag docker version patch ${service}-${group})
 
-vag docker pre-build ${userid}
+vag cx get-profile vscode ${userid} | vag docker pre-build 
 
 docker build -t docker-registry.7onetella.net/7onetella/${service}:${version} .
 
