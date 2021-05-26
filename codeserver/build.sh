@@ -1,10 +1,10 @@
 #!/bin/bash -e
 
-userid=$1 
+username=$1 
 
 ide=${2:-vscode}
 
-service=${ide}-${userid}
+service=${ide}-${username}
 
 group=public
 
@@ -12,7 +12,7 @@ set -x
 
 version=$(vag docker version patch ${service}-${group})
 
-vag cx get-profile ${userid} ${ide} | vag docker pre-build 
+vag cx get-profile ${username} ${ide} | vag docker pre-build 
 
 docker build -t docker-registry.7onetella.net/7onetella/${service}:${version} .
 
