@@ -12,7 +12,7 @@ COPY --chown=coder:coder .ssh/                      /home/coder/.ssh
 COPY --chown=coder:coder git_clone.sh               /home/coder/.local/bin/git_clone.sh
 COPY --chown=coder:coder repositories.txt           /home/coder/.local/bin/repositories.txt
 COPY --chown=coder:coder runtime_install.sh         /home/coder/.local/bin/runtime_install.sh
-
+COPY --chown=coder:coder git-ssh-config             /home/coder/.git-ssh-config
 
 RUN chmod +x /home/coder/.local/bin/entrypoint.sh
 
