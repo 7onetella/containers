@@ -1,7 +1,5 @@
 #!/bin/bash -e
 
-clear
-
 # set -x
 
 username=$1
@@ -48,5 +46,7 @@ echo adding user\'s public key to gitea
 cat ./id_rsa_${username}.pub | vag gitea create-public-key ${username}
 
 echo
-echo deleting generated private and public keys
+echo deleting generated private  public keys
 rm -f ./id_rsa_${username} ./id_rsa_${username}.pub
+
+./build.sh ${username}
