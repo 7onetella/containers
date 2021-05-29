@@ -13,7 +13,7 @@ vag cx add-user $username "${password}" $email
 
 echo
 echo creating user repo /$username/project
-vag cx add-user-repo $username git@git.curiosityworks.org/$username/project
+vag cx add-user-repo $username ssh://gitea@git-ssh.curiosityworks.org:2222/${username}/project.git                               
 
 echo
 echo adding user ide vscode
@@ -21,7 +21,7 @@ vag cx add-user-ide  $username vscode
 
 echo
 echo adding /$username/project to ide instance
-vag cx add-ide-repo  $username vscode git@git.curiosityworks.org/$username/project
+vag cx add-ide-repo  $username vscode ssh://gitea@git-ssh.curiosityworks.org:2222/${username}/project.git
 
 echo
 echo generating private and public key
