@@ -1,4 +1,4 @@
-FROM docker-registry.7onetella.net/7onetella/codeserver-base:1.0.1
+FROM docker-registry.7onetella.net/7onetella/codeserver-base:1.0.2
 
 RUN mkdir -p /home/coder/workspace                  && \
     mkdir -p /home/coder/.local/bin                 && \
