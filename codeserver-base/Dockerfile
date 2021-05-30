@@ -31,7 +31,9 @@ RUN export PATH=$PATH:.:/usr/local/go/bin/                  && \
     go get -v github.com/elazarl/go-bindata-assetfs/...     && \
     go get -v github.com/markbates/refresh                  && \
     go get -v github.com/mitchellh/gox                      && \
-    go get -v github.com/go-swagger/go-swagger
+    go get -v github.com/go-swagger/go-swagger              && \
+    `# terminal app `                                       && \
+    go get -v github.com/sorenisanerd/gotty
 
 # vscode extention
 #   /usr/bin/code-server --install-extension jpotterm.simple-vim    && \
