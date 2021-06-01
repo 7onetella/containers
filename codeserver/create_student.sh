@@ -8,6 +8,8 @@ password=$2
 
 email=$3
 
+echo --------------------------------------------
+echo adding to database
 echo -e "adding user                : $username"
 vag cx add-user $username "${password}" $email
 
@@ -31,9 +33,7 @@ cat ./id_rsa_${username}     | vag cx user-private-key ${username}
 echo -e "adding public_key          :"
 cat ./id_rsa_${username}.pub | vag cx user-public-key ${username}
 
-# --------------------------------------------------------------------------
-
-echo
+echo --------------------------------------------
 echo adding user to gitea
 vag gitea add-user ${username} "${password}" $email
 
@@ -45,4 +45,6 @@ cat ./id_rsa_${username}.pub | vag gitea create-public-key ${username}
 
 rm -f ./id_rsa_${username} ./id_rsa_${username}.pub
 
+echo --------------------------------------------
+echo deploying to nomad 
 ./build.sh ${username}
