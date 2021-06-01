@@ -20,6 +20,9 @@ vag cx add-user-ide  $username vscode
 echo -e "adding ide_repo            : /$username/project"
 vag cx add-ide-repo  $username vscode ssh://gitea@git-ssh.curiosityworks.org:2222/${username}/project.git
 
+echo -e "adding ide_runtime_install : tmux"
+vag cx add-ide-runtime-install $username vscode tmux
+
 rm -f ./id_rsa_${username} && ssh-keygen -t rsa -N '' -q -f ./id_rsa_${username}
 
 echo -e "adding private_key         :"
