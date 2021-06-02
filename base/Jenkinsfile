@@ -1,5 +1,5 @@
 pipeline {
-    agent none
+    agent any
     options {
         lock(quantity: 1, resource: 'container-build-lock', variable: 'CONTAINER_BUILD_LOCK')
         buildDiscarder(logRotator(numToKeepStr:'10'))
@@ -19,7 +19,7 @@ pipeline {
                     ])
                     currentBuild.displayName = "base ${params.VERSION}"
                     currentBuild.description = "base container image build"
-                    result = sh(label: 'build', returnStatus: true, script: "./build.sh ${params.VERSION}")
+                    result = sh(label: 'build', returnStatus: true, script: "base/build.sh ${params.VERSION}")
                     if (result == 1) {
                         currentBuild.result = 'FAILURE'
                         echo '[FAILURE] build failed'
