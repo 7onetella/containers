@@ -12,23 +12,20 @@ pipeline {
                         parameters([
                             string(
                                 defaultValue: '',
-                                name: 'LANGUAGES_VERSION',
+                                name: 'TOOLS_VERSION',
                                 trim: true
                             )
                         ])
                     ])
-                    version = sh(label: 'next_version', returnStdout: true, script: 'next_tag.sh 7onetella/tools').trim()                    
-                    currentBuild.displayName = "tools ${version}"
-                    currentBuild.description = "tools container image build"
-                    result = sh(label: 'build', returnStatus: true, script: "tools/build.sh ${params.LANGUAGES_VERSION}")
+                    version = sh(label: 'next_version', returnStdout: true, script: 'next_tag.sh 7onetella/codeserver-base').trim()                    
+                    currentBuild.displayName = "codeserver-base ${version}"
+                    currentBuild.description = "codeserver-base container image build"
+                    result = sh(label: 'build', returnStatus: true, script: "codeserver-base/build.sh ${params.TOOLS_VERSION}")
                     if (result == 1) {
                         currentBuild.result = 'FAILURE'
                         echo '[FAILURE] build failed'
                         return
                     }                  
-                    build job: 'codeserver-base', wait: false, parameters: [
-                        string(name: 'TOOLS_VERSION', value: "${version}")
-                    ]                        
                 }
             }
         }

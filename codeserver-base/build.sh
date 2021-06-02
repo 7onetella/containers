@@ -2,11 +2,15 @@
 
 set -x
 
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+
+cd $SCRIPT_DIR
+
 service=codeserver-base
 
-tools_version=${1:-1.0.1}
+tools_version=${1}
 
-version=${2:-1.0.3}
+version=$(../next_tag.sh 7onetella/tools)
 
 # removed --no-cache to improve build time
 docker build --build-arg TOOLS_VERSION=${tools_version} -t docker-registry.7onetella.net/7onetella/${service}:"${version}" .
