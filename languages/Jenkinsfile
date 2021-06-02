@@ -12,26 +12,24 @@ pipeline {
                         parameters([
                             string(
                                 defaultValue: '',
+                                name: 'BASE_VERSION',
+                                trim: true
+                            ),
+                            string(
+                                defaultValue: '',
                                 name: 'VERSION',
                                 trim: true
                             )
                         ])
                     ])
-                    currentBuild.displayName = "base ${params.VERSION}"
-                    currentBuild.description = "base container image build"
-                    result = sh(label: 'build', returnStatus: true, script: "base/build.sh ${params.VERSION}")
+                    currentBuild.displayName = "languages ${params.VERSION}"
+                    currentBuild.description = "languages container image build"
+                    result = sh(label: 'build', returnStatus: true, script: "languages/build.sh ${params.BASE_VERSION} ${params.VERSION}")
                     if (result == 1) {
                         currentBuild.result = 'FAILURE'
                         echo '[FAILURE] build failed'
                         return
                     }
-                }
-            }
-            post {
-                success {
-                    build job: 'languages/master', parameters: [
-                        string(name: 'param1', value: "value1")
-                    ]
                 }
             }
         }
