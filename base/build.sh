@@ -9,7 +9,7 @@ cd $SCRIPT_DIR
 
 repo=base
 
-version=${1:-1.0.0}
+version=$(../next_tag.sh 7onetella/base)
 
 docker build -t docker-registry.7onetella.net/7onetella/${repo}:"${version}" .
 
