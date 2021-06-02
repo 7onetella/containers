@@ -14,17 +14,12 @@ pipeline {
                                 defaultValue: '',
                                 name: 'BASE_VERSION',
                                 trim: true
-                            ),
-                            string(
-                                defaultValue: '',
-                                name: 'VERSION',
-                                trim: true
                             )
                         ])
                     ])
-                    currentBuild.displayName = "languages ${params.VERSION}"
+                    currentBuild.displayName = "languages base-${params.BASE_VERSION}"
                     currentBuild.description = "languages container image build"
-                    result = sh(label: 'build', returnStatus: true, script: "languages/build.sh ${params.BASE_VERSION} ${params.VERSION}")
+                    result = sh(label: 'build', returnStatus: true, script: "languages/build.sh ${params.BASE_VERSION}")
                     if (result == 1) {
                         currentBuild.result = 'FAILURE'
                         echo '[FAILURE] build failed'

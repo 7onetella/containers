@@ -8,20 +8,17 @@ pipeline {
         stage('Build') {
             steps {
                 script {
-                    currentBuild.displayName = "base ${params.VERSION}"
+                    version = sh(label: 'next_version', returnOutput: true, script: '../next_tag.sh 7onetella/base').trim()
+                    currentBuild.displayName = "base ${version}"
                     currentBuild.description = "base container image build"
-                    result = sh(label: 'build', returnStatus: true, script: "base/build.sh ${params.VERSION}")
+                    result = sh(label: 'build', returnStatus: true, script: "base/build.sh")
                     if (result == 1) {
                         currentBuild.result = 'FAILURE'
                         echo '[FAILURE] build failed'
                         return
                     }
-                }
-            }
-            post {
-                success {
                     build job: 'languages', wait: false, parameters: [
-                        string(name: 'BASE_VERSION', value: "${params.VERSION}")
+                        string(name: 'BASE_VERSION', value: "${${version}")
                     ]
                 }
             }

@@ -2,6 +2,10 @@
 
 set -x
 
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+
+cd $SCRIPT_DIR
+
 repo=languages
 
 base_version=${1:-1.0.0}
