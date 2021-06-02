@@ -17,7 +17,7 @@ pipeline {
                             )
                         ])
                     ])
-                    currentBuild.displayName = "${base ${params.VERSION}"
+                    currentBuild.displayName = "base ${params.VERSION}"
                     currentBuild.description = "base container image build"
                     result = sh(label: 'build', returnStatus: true, script: "./build.sh ${params.VERSION}")
                     if (result == 1) {
