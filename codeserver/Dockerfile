@@ -1,4 +1,5 @@
-FROM docker-registry.7onetella.net/7onetella/codeserver-base:1.0.2
+ARG CODESERVER_BASE
+FROM docker-registry.7onetella.net/7onetella/codeserver-base:${CODESERVER_BASE}
 
 RUN mkdir -p /home/coder/workspace                  && \
     mkdir -p /home/coder/.local/bin                 && \

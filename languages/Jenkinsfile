@@ -1,0 +1,36 @@
+pipeline {
+    agent any
+    options {
+        lock(quantity: 1, resource: 'container-build-lock', variable: 'CONTAINER_BUILD_LOCK')
+        buildDiscarder(logRotator(numToKeepStr:'10'))
+    }
+    stages {
+        stage('Build') {
+            steps {
+                script {
+                    properties([
+                        parameters([
+                            string(
+                                defaultValue: '',
+                                name: 'BASE_VERSION',
+                                trim: true
+                            )
+                        ])
+                    ])
+                    version = sh(label: 'next_version', returnStdout: true, script: 'next_tag.sh 7onetella/languages').trim()                    
+                    currentBuild.displayName = "languages ${version}"
+                    currentBuild.description = "languages container image build"
+                    result = sh(label: 'build', returnStatus: true, script: "languages/build.sh ${params.BASE_VERSION}")
+                    if (result == 1) {
+                        currentBuild.result = 'FAILURE'
+                        echo '[FAILURE] build failed'
+                        return
+                    }
+                    build job: 'tools', wait: false, parameters: [
+                        string(name: 'LANGUAGES_VERSION', value: "${version}")
+                    ]                    
+                }
+            }
+        }
+    }
+}

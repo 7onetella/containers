@@ -1,4 +1,5 @@
-FROM docker-registry.7onetella.net/7onetella/languages:1.0.1
+ARG LANGUAGES_VERSION
+FROM docker-registry.7onetella.net/7onetella/languages:${LANGUAGES_VERSION}
 
 ENV username=coder
 
@@ -13,6 +14,8 @@ RUN apt-get update --fix-missing  &&    \
     uuid                                \
     `# nomad install needs zip   `      \
     zip                                 \
+    postgresql                          \
+    libpq-dev                           \
   && rm -rf /var/lib/apt/lists/*
 
 
