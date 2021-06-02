@@ -8,10 +8,8 @@ version=${2:-1.0.1}
 
 cp ~/.ssh/authorized_keys .ssh/
 
-service=builder
+service=tools
 
-group=backend
-
-docker build --build-arg LANGUAGES_VERION=${languages_version} -t docker-registry.7onetella.net/7onetella/${service}:"${version}" .
+docker build --build-arg LANGUAGES_VERSION=${languages_version} -t docker-registry.7onetella.net/7onetella/${service}:"${version}" .
 
 docker push docker-registry.7onetella.net/7onetella/${service}:"${version}"

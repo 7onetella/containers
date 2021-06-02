@@ -1,4 +1,5 @@
-FROM docker-registry.7onetella.net/7onetella/builder:1.0.1
+ARG TOOLS_VERSION
+FROM docker-registry.7onetella.net/7onetella/tools:${TOOLS_VERSION}
 
 USER 1000
 ENV USER=coder

@@ -4,9 +4,11 @@ set -x
 
 service=codeserver-base
 
-version=1.0.2
+tools_version=${1:-1.0.2}
 
-docker build --no-cache -t docker-registry.7onetella.net/7onetella/${service}:"${version}" .
+version=${2:-1.0.3}
+
+docker build --build-args TOOLS_VERSION=${tools_version} --no-cache -t docker-registry.7onetella.net/7onetella/${service}:"${version}" .
 
 docker push docker-registry.7onetella.net/7onetella/${service}:"${version}"
 
