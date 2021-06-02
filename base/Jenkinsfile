@@ -8,7 +8,7 @@ pipeline {
         stage('Build') {
             steps {
                 script {
-                    version = sh(label: 'next_version', returnOutput: true, script: '../next_tag.sh 7onetella/base').trim()
+                    version = sh(label: 'next_version', returnOutput: true, script: 'next_tag.sh 7onetella/base').trim()
                     currentBuild.displayName = "base ${version}"
                     currentBuild.description = "base container image build"
                     result = sh(label: 'build', returnStatus: true, script: "base/build.sh")
