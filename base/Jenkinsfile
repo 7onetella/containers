@@ -20,7 +20,7 @@ pipeline {
             }
             post {
                 success {
-                    build job: 'languages', parameters: [
+                    build job: 'languages', wait: false, parameters: [
                         string(name: 'BASE_VERSION', value: "${params.VERSION}")
                     ]
                 }
