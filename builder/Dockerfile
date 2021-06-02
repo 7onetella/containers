@@ -1,4 +1,5 @@
-FROM docker-registry.7onetella.net/7onetella/languages:1.0.1
+ARG LANGUAGES_VERSION
+FROM docker-registry.7onetella.net/7onetella/languages:$LANGUAGES_VERSION
 
 ENV username=coder
 

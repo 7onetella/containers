@@ -4,8 +4,10 @@ set -x
 
 repo=languages
 
-version=1.0.1
+base_version=${1:-1.0.0}
 
-docker build -t docker-registry.7onetella.net/7onetella/${repo}:"${version}" .
+version=${2:-1.0.1}
+
+docker build --build-arg BASE_VERION=${base_version} -t docker-registry.7onetella.net/7onetella/${repo}:"${version}" .
 
 docker push docker-registry.7onetella.net/7onetella/${repo}:"${version}"
