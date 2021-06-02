@@ -1,13 +1,15 @@
-#!/bin/bash
+#!/bin/bash -e
 
-service-serbot
+set -x
 
-group=backend
+service=serbot
+
+group=public
 
 version=$(vag docker version patch ${service}-${group})
 
-docker build -t docker-registry.7onetella.net/7onetella/serbot:"${version}" .
+docker build -t docker-registry.7onetella.net/7onetella/${service}:${version} .
 
-docker push docker-registry.7onetella.net/7onetella/serbot:"${version}"
+docker push docker-registry.7onetella.net/7onetella/${service}:${version}
 
-vag docker deploy docker-registry.7onetella.net/7onetella/serbot-dev:"${version}"
+vag docker deploy docker-registry.7onetella.net/7onetella/${service}-${group}:${version}
