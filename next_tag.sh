@@ -18,7 +18,7 @@ EXAMPLE:
 HELP
 fi
 
-set -x
+# set -x
 
 image="$1"
 
