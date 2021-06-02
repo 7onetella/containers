@@ -24,4 +24,4 @@ image="$1"
 
 tags=`curl -s https://docker-registry.7onetella.net/v2/${image}/tags/list | sed -e 's/[][]//g' -e 's/"//g' -e 's/ //g' | tr '}' '\n'  | awk -F: '{print $3}'`
 
-echo "${tags}" | python3 -c "import sys; tags=sys.stdin.read().split(',').sort(); s=tags[-1].split('.'); print(f'{s[0]}.{s[1]}.{int(s[2])+1}')"
+echo "${tags}" | python3 -c "import sys; tags=sys.stdin.read().split(','); tags.sort(); s=tags[-1].split('.'); print(f'{s[0]}.{s[1]}.{int(s[2])+1}')"
