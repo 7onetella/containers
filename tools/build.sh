@@ -10,7 +10,7 @@ languages_version=${1}
 
 version=$(../next_tag.sh 7onetella/tools)
 
-cp ~/.ssh/authorized_keys .ssh/
+# cp ~/.ssh/authorized_keys .ssh/
 
 service=tools
 
