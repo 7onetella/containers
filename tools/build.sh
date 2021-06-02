@@ -2,9 +2,13 @@
 
 set -x
 
-languages_version=${1:-1.0.1}
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 
-version=${2:-1.0.1}
+cd $SCRIPT_DIR
+
+languages_version=${1}
+
+version=$(../next_tag.sh 7onetella/tools)
 
 cp ~/.ssh/authorized_keys .ssh/
 
