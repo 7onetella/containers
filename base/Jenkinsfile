@@ -18,7 +18,7 @@ pipeline {
                         return
                     }
                     build job: 'languages', wait: false, parameters: [
-                        string(name: 'BASE_VERSION', value: "${${version}")
+                        string(name: 'BASE_VERSION', value: "${version}")
                     ]
                 }
             }
