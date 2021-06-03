@@ -8,7 +8,7 @@ cd $SCRIPT_DIR
 
 repo=languages
 
-base_version=${1:-1.0.0}
+base_version=${1}
 
 version=$(../next_tag.sh 7onetella/languages)
 

@@ -1,4 +1,5 @@
-FROM docker-registry.7onetella.net/7onetella/base:1.0.0
+ARG BASE_VERSION
+FROM docker-registry.7onetella.net/7onetella/base:${BASE_VERSION}
 
 RUN apt-get update --fix-missing  && \
     apt-get -q -y  install           \

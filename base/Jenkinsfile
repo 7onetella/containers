@@ -20,6 +20,9 @@ pipeline {
                     build job: 'languages', wait: false, parameters: [
                         string(name: 'BASE_VERSION', value: "${version}")
                     ]
+                    build job: 'serbot', wait: false, parameters: [
+                        string(name: 'BASE_VERSION', value: "${version}")
+                    ]
                 }
             }
         }
