@@ -14,6 +14,7 @@ RUN apt-get update --fix-missing  &&    \
     uuid                                \
     `# nomad install needs zip   `      \
     zip                                 \
+    `# vag dependencies.         `      \
     postgresql                          \
     libpq-dev                           \
   && rm -rf /var/lib/apt/lists/*
