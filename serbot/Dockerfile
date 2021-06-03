@@ -4,7 +4,9 @@ FROM docker-registry.7onetella.net/7onetella/base:${BASE_VERSION}
 RUN apt-get update --fix-missing  && \
     apt-get -q -y  install           \
       python3                        \
-      python3-pip                    
+      python3-pip                    \
+      postgresql                     \
+      libpq-dev
 
 # app.py dependencies
 RUN pip3 install slackclient slackeventsapi vag
