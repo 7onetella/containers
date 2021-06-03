@@ -42,7 +42,6 @@ RUN sudo pip3 install vag
 
 
 COPY entrypoint.sh /
-COPY .ssh /home/${username}/.ssh
 RUN chmod +x  /entrypoint.sh                            && \
     chown -R ${username}:${username} /home/${username}  && \
     chown -R ${username}:${username} /go            
