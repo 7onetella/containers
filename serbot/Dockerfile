@@ -7,13 +7,15 @@ RUN apt-get update --fix-missing  && \
       python3-pip                    
 
 # app.py dependencies
-RUN pip3 install slackclient slackeventsapi
+RUN pip3 install slackclient slackeventsapi vag
 
-WORKDIR /root
+USER 1000
+ENV USER=coder
+WORKDIR /home/coder
 
 # install serbot app
-COPY app.py        /
-COPY entrypoint.sh /
+COPY --chown=coder:coder app.py         /
+COPY --chown=coder:coder entrypoint.sh  /
 
 RUN  chmod +x /entrypoint.sh
 

@@ -11,6 +11,8 @@ from flask import Flask, request, Response
 
 app = Flask(__name__)
 
+# logging.basicConfig(level=logging.INFO)
+
 # Our app's Slack Event Adapter for receiving actions via the Events API
 slack_signing_secret = os.environ["SLACK_SIGNING_SECRET"]
 slack_events_adapter = SlackEventAdapter(slack_signing_secret, "/serbot/slack/events")
@@ -59,12 +61,12 @@ def process_commands():
 
                 completed = subprocess.run(tokens, capture_output=True, env=custom_env)    
                 if completed.returncode != 0:
-                    output = '''
-:feelsbadman: process returned with exit code {}
+                    output = f'''
+:warning: process returned with exit code {completed.returncode}
 ```
-args : {} 
-{} 
-{}```'''.format(completed.returncode, completed.args, completed.stdout.decode().strip(), completed.stderr.decode().strip())
+args : {completed.args} 
+{completed.stdout.decode().strip()} 
+{completed.stderr.decode().strip()}```''' 
                     logger.error(output)
                     slack_client.chat_postMessage(channel=channel, text=output)
                     continue
@@ -107,7 +109,7 @@ thread.daemon = False
 thread.start()
 
 
-logger = logging.getLogger("__name__")  # or __name__ for current module
+logger = logging.getLogger("app.py")  # or __name__ for current module
 logger.setLevel(logging.INFO)
 
 
