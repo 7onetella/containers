@@ -54,8 +54,14 @@ def process_commands():
                 logger.info('')
                 
                 tokens = [unwap_text(token) for token in tokens]
+
                 cmd_str = ' '.join(tokens)
                 slack_client.chat_postMessage(channel=channel, text='*executing:* `{}`  *requested by:* {}'.format(cmd_str, user_name))
+
+                if tokens[0] == 'create-student':
+                    tokens[0] = '/home/coder/containers/codeserver/create_student.sh'
+                if tokens[0] == 'delete-student':
+                    tokens[0] = '/home/coder/containers/codeserver/delete_student.sh'
 
                 # use api_app_id as encryption key
                 custom_env = get_custom_env(event_data['api_app_id'])
