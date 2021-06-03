@@ -14,6 +14,7 @@ RUN pip3 install slackclient slackeventsapi vag
 USER 1000
 ENV USER=coder
 WORKDIR /home/coder
+USER coder
 
 # install serbot app
 COPY --chown=coder:coder app.py         /
