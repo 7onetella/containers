@@ -1,1 +1,1 @@
-FROM joxit/docker-registry-ui:static
+FROM joxit/docker-registry-ui:latest
