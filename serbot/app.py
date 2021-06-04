@@ -53,7 +53,7 @@ def process_commands():
                 logger.info('command : {}'.format(tokens))
                 logger.info('')
                 
-                tokens = [unwap_text(token) for token in tokens]
+                tokens = [unwrap_text(token) for token in tokens]
 
                 cmd_str = ' '.join(tokens)
                 slack_client.chat_postMessage(channel=channel, text='*executing:* `{}`  *requested by:* {}'.format(cmd_str, user_name))
