@@ -6,9 +6,9 @@ opendistro_security.disabled: true
 cluster.routing.allocation.disk.threshold_enabled: false
 node.max_local_storage_nodes: 3
 
-node.name: "tmt-vm7.7onetella.net"
+node.name: "search.7onetella.net"
 discovery.seed_hosts: 
-  - tmt-vm7.7onetella.net
+  - search.7onetella.net
 cluster.initial_master_nodes: 
-  - tmt-vm7.7onetella.net
+  - search.7onetella.net
 bootstrap.memory_lock: false

@@ -1,9 +1,13 @@
 #!/bin/bash
 
-version=${1}
+service=elasticsearch
 
-docker build -t docker-registry.7onetella.net:5000/7onetella/elasticsearch:"${version}" .
+group=backend
 
-docker push docker-registry.7onetella.net:5000/7onetella/elasticsearch:"${version}"
+version=$(vag docker version patch ${service}-${group})
 
-vag docker deploy elasticsearch-dev:"${version}"
+docker build -t docker-registry.7onetella.net/7onetella/${service}:${version} .
+
+docker push docker-registry.7onetella.net/7onetella/${service}:${version}
+
+vag docker deploy docker-registry.7onetella.net/7onetella/${service}-${group}:${version}
