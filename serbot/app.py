@@ -95,10 +95,23 @@ args : {completed.args}
                 slack_client.chat_postMessage(channel=channel, text=s)
 
 
-def unwap_text(text: str) -> str:
-    if text.startswith('<mailto:'):
-        return text.split('|')[1][:-1]
-    return text
+def unwrap_text(str):
+    final_str = ''
+
+    i = 0
+    while i < len(str):
+        if str[i] == '<':
+            closing_paren_idx = str.find('>', i)
+            parsed = str[i+1:closing_paren_idx]
+            second_token = parsed.split('|')[1] 
+            final_str += second_token
+            i = closing_paren_idx + 1
+            continue
+
+        final_str += str[i]
+        i += 1
+
+    return final_str
 
 
 def get_custom_env(key):
