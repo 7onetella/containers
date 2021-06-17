@@ -10,6 +10,7 @@ RUN apt-get update --fix-missing  &&    \
     ca-certificates                     \
     gnupg                               \
     `# vag dependencies          `      \
+    openssl                             \
     postgresql                          \
     libpq-dev                           \
     `# nomad dependencies        `      \
@@ -24,7 +25,8 @@ RUN curl -s -O "https://releases.hashicorp.com/nomad/${NOMAD_VERSION}/nomad_${NO
 
 
 # app.py dependencies
-RUN pip3 install slackclient slackeventsapi vag
+RUN pip3 install "pip>=20"                          && \
+    pip3 install slackclient slackeventsapi vag
 
 
 

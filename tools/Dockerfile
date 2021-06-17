@@ -15,6 +15,7 @@ RUN apt-get update --fix-missing  &&    \
     `# nomad install needs zip   `      \
     zip                                 \
     `# vag dependencies.         `      \
+    openssl                             \
     postgresql                          \
     libpq-dev                           \
   && rm -rf /var/lib/apt/lists/*
@@ -38,7 +39,7 @@ RUN curl -s -O "https://releases.hashicorp.com/nomad/${NOMAD_VERSION}/nomad_${NO
 
 
 # Install tools
-RUN sudo pip3 install vag
+RUN sudo pip3 install "pip>=20" && pip3 install vag
 
 
 COPY entrypoint.sh /
