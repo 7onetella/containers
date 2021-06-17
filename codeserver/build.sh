@@ -10,7 +10,7 @@ group=public
 
 set -x
 
-codeserver_base=1.0.3
+codeserver_base=1.0.8
 
 version=$(vag docker version patch ${service}-${group})
 
