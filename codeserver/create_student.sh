@@ -8,6 +8,10 @@ password=$2
 
 email=$3
 
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+
+cd $SCRIPT_DIR
+
 echo --------------------------------------------
 echo adding to database
 echo -e "adding user                : $username"

@@ -14,6 +14,7 @@ RUN apt-get update --fix-missing  &&    \
     uuid                                \
     `# nomad install needs zip   `      \
     zip                                 \
+    `# vag dependencies.         `      \
     postgresql                          \
     libpq-dev                           \
   && rm -rf /var/lib/apt/lists/*
@@ -41,7 +42,6 @@ RUN sudo pip3 install vag
 
 
 COPY entrypoint.sh /
-COPY .ssh /home/${username}/.ssh
 RUN chmod +x  /entrypoint.sh                            && \
     chown -R ${username}:${username} /home/${username}  && \
     chown -R ${username}:${username} /go            

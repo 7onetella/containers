@@ -1,6 +1,6 @@
 config.yml
 *.app
-.ssh
+authorized_keys
 .gitconfig
 profile-*.yml
 repositories.txt

@@ -1,9 +1,13 @@
 #!/bin/bash
 
-version=${1}
+service=kibana
 
-docker build -t docker-registry.7onetella.net/7onetella/kibana:"${version}" .
+group=backend
 
-docker push docker-registry.7onetella.net/7onetella/kibana:"${version}"
+version=$(vag docker version patch ${service}-${group})
 
-vag docker deploy kibana-dev:"${version}"
+docker build -t docker-registry.7onetella.net/7onetella/kibana:${version} .
+
+docker push docker-registry.7onetella.net/7onetella/kibana:${version}
+
+vag docker deploy docker-registry.7onetella.net/7onetella/${service}-${group}:${version}

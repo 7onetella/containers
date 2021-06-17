@@ -4,6 +4,10 @@
 
 username=$1
 
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+
+cd $SCRIPT_DIR
+
 echo --------------------------------------------
 echo deleting from gitea    
 vag gitea delete-user-repo ${username} project || true 
